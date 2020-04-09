@@ -21,5 +21,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'ShopController@index');
-Route::get('/mycart', 'ShopController@myCart')->middleware('auth');
-Route::post('/mycart', 'ShopController@addMycart');
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/mycart', 'ShopController@myCart');
+    Route::post('/mycart', 'ShopController@addMycart');
+    Route::post('/cartdelete', 'ShopController@deleteCart');
+    Route::post('/checkout', 'ShopController@checkout');
+   
+});
+
+Auth::routes();
