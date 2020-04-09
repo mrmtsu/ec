@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "ext-gd": "*",
         "ext-pdo_sqlite": "*",
         "ext-intl": "*",
         "fideloper/proxy": "^4.2",
