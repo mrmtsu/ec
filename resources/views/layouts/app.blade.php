@@ -19,14 +19,21 @@
    <!-- Styles -->
    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+<style>
+.catImg {position: relative; display: block; margin: 0 auto; width: 100%; height: 420px; overflow: hidden; max-width: 980px; margin: 0 auto 100px; padding-bottom: 50px; letter-spacing: 0.115em;}
+.imgHolder.scroll1{/* -webkit-animation: scroll1 80s linear infinite; */ animation: scroll1 50s linear infinite; position: absolute; display: block; top: 0; left: 0;}
+@-webkit-keyframes scroll1{from{transform: translateX(0px)}to{transform: translateX(-274px)}}
+@keyframes scroll1{from{transform: translateX(0px)}to{transform: translateX(-2000px)}}
+#top-image{height:500px;}
+</style>
 <body>
    <div id="app">
-       <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background-color:#0092b3; color:#fefefe;">
+       <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="">
            <div class="container">
-               <a class="navbar-brand" style="color:#fefefe; font-size:1.4em" href="{{ url('/') }}" >
+               <a class="navbar-brand" style="font-size:1.4em; color: #656565; font-family: trajan-sans-pro, sans-serif; text-decoration:none;" href="{{ url('/') }}" >
                    {{ config('app.name', 'Laravel') }}
                </a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}" style="display:none;">
                    <span class="navbar-toggler-icon"></span>
                </button>
 
@@ -41,24 +48,24 @@
                        <!-- Authentication Links -->
                        @guest
                            <li class="nav-item">
-                               <a class="nav-link" style="color:#fefefe;"  href="{{ route('login') }}">{{ __('ログイン') }}</a>
+                               <a class="nav-link" style="color: #656565;"  href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i></a>
                            </li>
                            @if (Route::has('register'))
                                <li class="nav-item">
-                                   <a class="nav-link" style="color:#fefefe;"  href="{{ route('register') }}">{{ __('会員登録') }}</a>
+                                   <a class="nav-link" style="color: #656565;"  href="{{ route('register') }}">{{ __('会員登録') }}</a>
                                </li>
                            @endif
                        @else
-                           <li class="nav-item dropdown">
-                               <a id="navbarDropdown" style="color:#fefefe;" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                           <li class="nav-item dropdown" style="color: #656565; list-style:none;">
+                               <a id="navbarDropdown" style="color: #656565;  text-decoration:none;" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                    {{ Auth::user()->name }} <span class="caret"></span>
                                </a>
 
                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                   <a class="dropdown-item" href="{{ route('logout') }}"
+                                   <a class="dropdown-item" href="{{ route('logout') }}" style="color: #656565;  text-decoration:none;"
                                    onclick="event.preventDefault();
                                                    document.getElementById('logout-form').submit();">
-                                       {{ __('ログアウト') }}
+                                       <i class="fas fa-sign-out-alt"></i>
                                    </a>
 
                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -66,14 +73,14 @@
                                    </form>
 
                                    {{-- 追加 --}}
-                                   <a class="dropdown-item" href="{{ url('/mycart') }}">
+                                   <a class="dropdown-item" href="{{ url('/mycart') }}" style="color: #656565;  text-decoration:none; display:none;">
                                        カートを見る
                                    </a>
                                </div>
                            </li>
                            {{-- 追加 --}}
                            <a href="{{ url('/mycart') }}" >
-                               <img src="{{ asset('image/cart.png') }}" class="cart" >
+                               <i class="fas fa-shopping-cart" style="color: #656565; text-decoration:none;"></i>
                            </a>
                        @endguest
 
@@ -87,27 +94,87 @@
            @yield('content')
        </main>
 
-       <footer class="footer_design">
+        <footer id="footer" class="footer">
+            <div class="footer-inner">
+                <div class="footer_nav">
+            <div class="fat-nav">
+                <div class="fat-nav__wrapper">
+                <div class="fat-nav-white">
+                    <div class="nav-main">
+                    <div id="gnav">
+                        <ul>
+                        <li><a href="/">問い合わせ</a></li>
+                        <li><a href="/" target="_brank">POINTカード</a></li>
+                        <li class="nav_jp">
+                            @guest
+                                <a href="{{ route('login') }}">ログイン</a>
+                                @if (Route::has('register'))
+                                    <a class="nav-link" style="color: #656565;"  href="{{ route('register') }}">会員登録</a>
+                                @endif
+                            @else
+                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+                            @endguest
 
-            @guest
-                <p class="nav-item" style="display:inline;">
-                    <a class="nav-link" href="{{ route('login') }}" style="color:#fefefe; display:inline;">{{ __('ログイン') }}</a>
-
-                @if (Route::has('register'))
-
-                        <a class="nav-link" href="{{ route('register') }}" style="color:#fefefe; display:inline;">{{ __('会員登録') }}</a>
-                    </p>
-                @endif
-
-            @endguest
-            <br>
-            <div style="margin-top:24px;">
-            なんでも売ります<br>
-            <p style="font-size:2.4em">Larashop</p><br>
+                        </li>
+                        <li class="toggle">
+                            <span class="arrow nav_jp">インフォ</span>
+                            <div class="menu">
+                            <ul class="menu_inner">
+                                <li><a href="/Page/guide/Default.aspx">ご利用ガイド</a></li>
+                                <li><a href="/Page/guide/notice.aspx">ご利用規約</a></li>
+                                <li><a href="/Page/guide/disclaimer.aspx">免責事項</a></li>
+                                <li><a href="/Page/guide/privacy.aspx">プライバシーポリシー</a></li>
+                                <li><a href="/Page/guide/tokutei.aspx">特定商取引に基づく表示</a></li>
+                                <li><a href="/Form/User/MailMagazineRegistInput.aspx">メールマガジン登録</a></li>
+                                <li><a href="/" target="_brank">会社情報</a></li>
+                                <li><a href="/Page/link.aspx" target="_brank">LINK</a></li>
+                            </ul>
+                            </div>
+                        </li>
+                        </ul>
+                        <ul class="footerSnsNav">
+                        <li>
+                            <a href="/" target="_brank">
+                            <i class="fab fa-instagram" style="font-size:30px;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/" target="_brank">
+                            <i class="fab fa-line" style="font-size:30px;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/">
+                            <i class="far fa-envelope" style="font-size:30px;"></i>
+                            </a>
+                        </li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+              </div>
             </div>
 
-            <p style="font-size:0.7em;">@copyright @mukae9</p>  
+            <div class="text_about">
+                <p>
+                通販サイトです。<br>
+                オフィシャルオンラインストアでは人気アイテムをすべて取り揃えております。
+                </p>
+                <p class="copy">© onlineshop</p>
+            </div>
+          <div class="modal modal-filter hide" id="modalSearch">
+            <div class="modal-overlay"></div>
+            <div class="modal-wrapper">
+            <div class="modal-inner">
+                <div id="headerSearch">
 
+                <div class="btn-close" id="modalCloseBtn"></div>
+                <!-- <a href="/Page/AdvancedSearch.aspx">詳しく検索</a> -->
+                </div>
+
+            </div>
+            </div>
+          </div>
         </footer>
    </div>
 </body>
