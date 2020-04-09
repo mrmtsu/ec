@@ -20,3 +20,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'ShopController@index');
+Route::get('/mycart', 'ShopController@myCart')->middleware('auth');
+Route::post('/mycart', 'ShopController@addMycart');
